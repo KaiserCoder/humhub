@@ -10,6 +10,7 @@ namespace humhub\modules\directory\controllers;
 
 use Yii;
 use yii\helpers\Url;
+use yii\helpers\HtmlPurifier;
 use humhub\models\Setting;
 use humhub\modules\directory\widgets\Sidebar;
 use yii\web\HttpException;
@@ -70,7 +71,7 @@ class DirectoryController extends \humhub\modules\directory\components\Controlle
      */
     public function actionMembers()
     {
-        $keyword = Yii::$app->request->get('keyword', "");
+        $keyword = HtmlPurifier::process(Yii::$app->request->get('keyword', ""));
         $page = (int) Yii::$app->request->get('page', 1);
         $groupId = (int) Yii::$app->request->get('groupId', "");
 
