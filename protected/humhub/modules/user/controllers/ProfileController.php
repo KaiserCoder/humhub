@@ -74,9 +74,12 @@ class ProfileController extends ContentContainerController
     {
         $this->getUser()->follow();
 
-        if (Yii::$app->request->method === 'GET')
-        {
+        if (Yii::$app->request->method === 'GET') {
             return $this->redirect(Url::to(['/directory/members']));
+        }
+
+        if (!Yii::$app->request->post('directory')) {
+            return $this->redirect($this->getUser()->getUrl());
         }
     }
 
@@ -87,9 +90,12 @@ class ProfileController extends ContentContainerController
     {
         $this->getUser()->unfollow();
 
-        if (Yii::$app->request->method === 'GET')
-        {
+        if (Yii::$app->request->method === 'GET') {
             return $this->redirect(Url::to(['/directory/members']));
+        }
+
+        if (!Yii::$app->request->post('directory')) {
+            return $this->redirect($this->getUser()->getUrl());
         }
     }
 

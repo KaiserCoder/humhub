@@ -119,6 +119,9 @@ use yii\helpers\Html;
     function setFollow(url, id) {
         jQuery.ajax({
             url: url,
+            data: {
+                directory: true
+            },
             type: "POST",
             'success': function () {
                 $("#button_follow_" + id).addClass('hide');
@@ -130,6 +133,9 @@ use yii\helpers\Html;
     function setUnfollow(url, id) {
         jQuery.ajax({
             url: url,
+            data: {
+                directory: true
+            },
             type: "POST",
             'success': function () {
                 $("#button_follow_" + id).removeClass('hide');
