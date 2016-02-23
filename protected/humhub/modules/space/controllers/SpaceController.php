@@ -8,6 +8,8 @@
 
 namespace humhub\modules\space\controllers;
 
+use Yii;
+
 /**
  * SpaceController is the main controller for spaces.
  *
@@ -66,7 +68,9 @@ class SpaceController extends \humhub\modules\content\components\ContentContaine
             $space->follow();
         }
 
-        return $this->redirect($space->getUrl());
+        if (!Yii::$app->request->post('directory')) {
+            return $this->redirect($space->getUrl());
+        }
     }
 
     /**
