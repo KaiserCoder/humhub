@@ -82,7 +82,9 @@ class SpaceController extends \humhub\modules\content\components\ContentContaine
         $space = $this->getSpace();
         $space->unfollow();
 
-        return $this->redirect($space->getUrl());
+        if (!Yii::$app->request->post('directory')) {
+            return $this->redirect($space->getUrl());
+        }
     }
 
 }
