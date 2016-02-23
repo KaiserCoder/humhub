@@ -8,7 +8,9 @@
 
 namespace humhub\modules\user\controllers;
 
+use Yii;
 use humhub\modules\content\components\ContentContainerController;
+use yii\helpers\Url;
 
 /**
  * ProfileController is responsible for all user profiles.
@@ -70,8 +72,12 @@ class ProfileController extends ContentContainerController
      */
     public function actionFollow()
     {
-        $this->forcePostRequest();
         $this->getUser()->follow();
+
+        if (Yii::$app->request->method === 'GET')
+        {
+            return $this->redirect(Url::to(['/directory/members']));
+        }
     }
 
     /**
@@ -79,8 +85,12 @@ class ProfileController extends ContentContainerController
      */
     public function actionUnfollow()
     {
-        $this->forcePostRequest();
         $this->getUser()->unfollow();
+
+        if (Yii::$app->request->method === 'GET')
+        {
+            return $this->redirect(Url::to(['/directory/members']));
+        }
     }
 
 }
