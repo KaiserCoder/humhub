@@ -72,7 +72,6 @@ class ProfileController extends ContentContainerController
     {
         $this->forcePostRequest();
         $this->getUser()->follow();
-        return $this->redirect($this->getUser()->getUrl());
     }
 
     /**
@@ -82,7 +81,6 @@ class ProfileController extends ContentContainerController
     {
         $this->forcePostRequest();
         $this->getUser()->unfollow();
-        return $this->redirect($this->getUser()->getUrl());
     }
 
 }
