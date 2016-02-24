@@ -44,12 +44,12 @@ use yii\helpers\Html;
 
                     <!-- Follow Handling -->
                     <div class="pull-right">
-                        <?php
-                        if (!Yii::$app->user->isGuest && !(Yii::$app->user->id === $user->id)) {
-                            $followed = $user->isFollowedByUser();
-                            echo Html::a(Yii::t('DirectoryModule.views_directory_members', 'Follow'), $user->createUrl('/user/profile/follow') . '?id=' . $user->id, array('class' => 'follow btn btn-info btn-sm ' . (($followed) ? 'hide' : ''), 'id' => 'button_follow_' . $user->id));
-                            echo Html::a(Yii::t('DirectoryModule.views_directory_members', 'Unfollow'), $user->createUrl('/user/profile/unfollow') . '?id=' . $user->id, array('class' => 'unfollow btn btn-primary btn-sm ' . (($followed) ? '' : 'hide'), 'id' => 'button_unfollow_' . $user->id));
-                        }
+                        <?=
+                        \humhub\modules\user\widgets\UserFollowButton::widget([
+                            'user' => $user,
+                            'followOptions' => ['class' => 'btn btn-primary btn-sm'],
+                            'unfollowOptions' => ['class' => 'btn btn-info btn-sm']
+                        ]);
                         ?>
                     </div>
 
@@ -97,50 +97,3 @@ use yii\helpers\Html;
 <div class="pagination-container">
     <?php echo \humhub\widgets\LinkPager::widget(['pagination' => $pagination]); ?>
 </div>
-
-<script type="text/javascript">
-
-    function setJavascript(selector, funcName) {
-        $(selector).each(function() {
-            var result = $(this).attr('href').match(/\?id=([0-9]+)/);
-            $(this).attr('href', 'javascript:' + funcName + '("' + $(this).attr('href').replace(/\?id=[0-9]+/, '') + '", "' + result[1] + '")');
-        });
-    }
-
-    setJavascript('a.follow', 'setFollow');
-    setJavascript('a.unfollow', 'setUnfollow');
-
-    $('a.unfollow').each(function() {
-        var result = $(this).attr('href').match(/\?id=([0-9]+)/);
-        $(this).attr('href', 'javascript:setUnfollow("' + $(this).attr('href').replace(/\?id=[0-9]+/, '') + '", "' + result[1] + '")');
-    });
-
-    // ajax request to follow the user
-    function setFollow(url, id) {
-        jQuery.ajax({
-            url: url,
-            data: {
-                directory: true
-            },
-            type: "POST",
-            'success': function () {
-                $("#button_follow_" + id).addClass('hide');
-                $("#button_unfollow_" + id).removeClass('hide');
-            }});
-    }
-
-    // ajax request to unfollow the user
-    function setUnfollow(url, id) {
-        jQuery.ajax({
-            url: url,
-            data: {
-                directory: true
-            },
-            type: "POST",
-            'success': function () {
-                $("#button_follow_" + id).removeClass('hide');
-                $("#button_unfollow_" + id).addClass('hide');
-            }});
-    }
-
-</script>

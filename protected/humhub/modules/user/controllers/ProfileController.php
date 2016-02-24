@@ -2,7 +2,7 @@
 
 /**
  * @link https://www.humhub.org/
- * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
+ * @copyright Copyright (c) 2016 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
  */
 
@@ -73,14 +73,11 @@ class ProfileController extends ContentContainerController
     public function actionFollow()
     {
         $this->getUser()->follow();
-
-        if (Yii::$app->request->method === 'GET') {
-            return $this->redirect(Url::to(['/directory/members']));
+        if (Yii::$app->request->isAjax) {
+            return;
         }
 
-        if (!Yii::$app->request->post('directory')) {
-            return $this->redirect($this->getUser()->getUrl());
-        }
+        return $this->redirect($this->getUser()->getUrl());
     }
 
     /**
@@ -90,13 +87,11 @@ class ProfileController extends ContentContainerController
     {
         $this->getUser()->unfollow();
 
-        if (Yii::$app->request->method === 'GET') {
-            return $this->redirect(Url::to(['/directory/members']));
+        if (Yii::$app->request->isAjax) {
+            return;
         }
 
-        if (!Yii::$app->request->post('directory')) {
-            return $this->redirect($this->getUser()->getUrl());
-        }
+        return $this->redirect($this->getUser()->getUrl());
     }
 
 }
