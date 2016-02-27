@@ -76,7 +76,7 @@ AppAsset::register($this);
         <meta name="theme-color" content="#ffffff">
         <meta charset="<?= Yii::$app->charset ?>">
         <!-- end: Favicon and Touch Icons -->
-
+        <meta name="description" content="Ponycity est un réseau social Brony ayant pour vocation de regrouper tous les Brony français afin de faciliter les rencontres, le dialogue et la création d'évènements et projets innovants liés au fandom My Little Pony: Friendship is Magic."/>
     </head>
 
     <body>
