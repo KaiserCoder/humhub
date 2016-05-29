@@ -24,5 +24,3 @@ nbproject
 .gitmodules
 /composer.lock
 
-themes/*
-!themes/HumHub
